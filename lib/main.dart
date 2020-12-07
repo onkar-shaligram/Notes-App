@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_app/addNote.dart';
+import 'package:notes_app/editNote.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,15 +59,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
             itemCount: snapshot.hasData ? snapshot.data.docs.length : 0,
             itemBuilder: (_, index) {
-              return Container(
-                margin: EdgeInsets.all(20),
-                height: 130,
-                color: Colors.grey[400],
-                child: Column(
-                  children: [
-                    Text(snapshot.data.docs[index].data()['title']),
-                    Text(snapshot.data.docs[index].data()['content']),
-                  ],
+
+              return GestureDetector(
+
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=>EditNote(docToEdit: snapshot.data.docs[index],)));
+                },
+              
+
+                child: Container(
+                       margin: EdgeInsets.all(20),
+                  height: 130,
+                  color: Colors.grey[400],
+                  child: Column(
+                    children: [
+                      Text(snapshot.data.docs[index].data()['title']),
+                      Text(snapshot.data.docs[index].data()['content']),
+                    ],
+                  ),
                 ),
               );
             });

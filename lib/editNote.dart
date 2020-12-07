@@ -1,23 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
-class AddNote extends StatefulWidget {
+class EditNote extends StatefulWidget {
+  
+  DocumentSnapshot docToEdit;
 
+  EditNote({this.docToEdit});   // The document which has to be edited is passed out through this constructor.
 
   @override
-  _AddNoteState createState() => _AddNoteState();
+  _EditNoteState createState() => _EditNoteState();
 }
 
-class _AddNoteState extends State<AddNote> {
-  TextEditingController title = TextEditingController();
-
-  TextEditingController content = TextEditingController();
-
-   CollectionReference ref = FirebaseFirestore.instance.collection('notes');
-
+class _EditNoteState extends State<EditNote> {
   @override
   Widget build(BuildContext context) {
+
+    TextEditingController title = TextEditingController(text: widget.docToEdit.data()['title']);
+    TextEditingController content = TextEditingController(text: widget.docToEdit.data()['content']);
 
 
     return Scaffold(
@@ -25,10 +24,18 @@ class _AddNoteState extends State<AddNote> {
         actions: [
           FlatButton(
             onPressed: () {
-              ref.add({
+
+              widget.docToEdit.reference.update({
                 'title': title.text,
                 'content': content.text,
-              }).whenComplete(() => Navigator.pop(context));
+              }).whenComplete(() => Navigator.pop(context)
+              );
+
+
+              // ref.add({
+              //   'title': title.text,
+              //   'content': content.text,
+              // }).whenComplete(() => Navigator.pop(context));
             },
             child: Text(
               "Save",
