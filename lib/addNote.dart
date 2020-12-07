@@ -1,18 +1,36 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class AddNote extends StatelessWidget {
-  
-  TextEditingController title = TextEditingController();
-  TextEditingController content = TextEditingController();
+// ignore: must_be_immutable
+class AddNote extends StatefulWidget {
 
 
   @override
+  _AddNoteState createState() => _AddNoteState();
+}
+
+class _AddNoteState extends State<AddNote> {
+  TextEditingController title = TextEditingController();
+
+  TextEditingController content = TextEditingController();
+
+   CollectionReference ref = FirebaseFirestore.instance.collection('notes');
+
+  @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
         actions: [
           FlatButton(
-            onPressed: () {},
+            onPressed: () {
+              ref.add({
+                'title': title.text,
+                'content': content.text,
+              }).whenComplete(() => Navigator.pop(context));
+            },
             child: Text(
               "Save",
               style: TextStyle(color: Colors.white),
