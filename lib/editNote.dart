@@ -24,21 +24,24 @@ class _EditNoteState extends State<EditNote> {
         actions: [
           FlatButton(
             onPressed: () {
-
               widget.docToEdit.reference.update({
                 'title': title.text,
                 'content': content.text,
               }).whenComplete(() => Navigator.pop(context)
               );
-
-
-              // ref.add({
-              //   'title': title.text,
-              //   'content': content.text,
-              // }).whenComplete(() => Navigator.pop(context));
             },
             child: Text(
               "Save",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+
+          FlatButton(
+            onPressed: () {
+              widget.docToEdit.reference.delete().whenComplete(() => Navigator.pop(context));
+            },
+            child: Text(
+              "Delete",
               style: TextStyle(color: Colors.white),
             ),
           ),
