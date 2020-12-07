@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class AddNote extends StatefulWidget {
-
-
   @override
   _AddNoteState createState() => _AddNoteState();
 }
@@ -14,12 +12,10 @@ class _AddNoteState extends State<AddNote> {
 
   TextEditingController content = TextEditingController();
 
-   CollectionReference ref = FirebaseFirestore.instance.collection('notes');
+  CollectionReference ref = FirebaseFirestore.instance.collection('notes');
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -47,20 +43,17 @@ class _AddNoteState extends State<AddNote> {
               decoration: InputDecoration(hintText: "Title"),
             ),
           ),
-
           SizedBox(
             height: 10,
           ),
-
-
           Expanded(
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               decoration: BoxDecoration(border: Border.all()),
               child: TextField(
                 controller: content,
-                maxLines: null,  //Let this be infinity
-                expands: true,   //let this be expanding howoever it want
+                maxLines: null, //Let this be infinity
+                expands: true, //let this be expanding howoever it want
                 decoration: InputDecoration(hintText: "Content"),
               ),
             ),
