@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/addNote.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,9 +37,20 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      floatingActionButton: FloatingActionButton(child: Icon(Icons.add), onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>AddNote()));
+      },),
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2), // 2 rows and others are collumns.
 
-      ),
+        itemCount: 10,
+        itemBuilder: (_, index) {
+          return Container(
+            margin: EdgeInsets.all(20),
+            height: 130,
+            color: Colors.grey[400],
+          );
+        })
     );
   }
 }
